@@ -1,0 +1,107 @@
+---
+title: "1FloridaADRC Recruitment Report"
+pdf_document: null
+geometry: margin=1cm
+output: pdf_document
+header-includes:
+  - \usepackage{titling}
+  - \pretitle{\begin{center}
+    \includegraphics[width=1.5in,height=1.5in]{oneflorida.png}\LARGE\\}
+  - \posttitle{\end{center}}
+
+---
+\fontfamily{arial}
+\fontsize{10}{22}
+\fontseries{}
+\selectfont
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, messages= FALSE, warning= FALSE, comment=NA , fig.pos = "!H", out.extra = "")
+library(tidyverse)
+options(tidyverse.quiet = TRUE)
+library(dotenv)
+library(REDCapR)
+library(knitr)
+options(dplyr.summarise.inform = FALSE)
+library(kableExtra)
+```
+
+
+
+```{r, targets}
+
+targets<- read.csv("targets.csv")
+
+all_sites_hispanic<- targets %>% 
+  filter(Target== "Hispanic consented") %>% 
+  tail(3) %>% 
+  kbl(booktabs = T)
+
+all_sites_white<- targets %>% 
+  filter(Target== "White consented") %>% 
+  tail(3) %>% 
+  kbl(booktabs = T)
+
+all_sites_african<- targets %>% 
+  filter(Target== "African American consented") %>% 
+  tail(3) %>% 
+  kbl(booktabs = T)
+
+all_sites_new<- targets %>% 
+  filter(Target== "New Participants") %>% 
+  tail(3) %>% 
+  kbl(booktabs = T)
+
+all_sites_fv<- targets %>% 
+  filter(Target== "Follow-up visits") %>% 
+  tail(3) %>% 
+  kbl(booktabs = T)
+
+all_sites_mripet<- targets %>% 
+  filter(Target== "FV MRI/PET") %>% 
+  tail(3) %>% 
+  kbl(booktabs = T)
+
+```
+
+```{r results='asis', echo=FALSE}
+cat(c("\\begin{table}[!htb]
+    \\begin{minipage}{.33\\linewidth}
+    \\caption{Hispanic consented}",
+        all_sites_hispanic,
+    "\\end{minipage}%
+    \\begin{minipage}{.31\\linewidth}
+    \\caption{White non-hispanic consented}",
+        all_sites_white,
+    "\\end{minipage} 
+     \\begin{minipage}{.32\\linewidth}
+    \\caption{African American consented}",
+        all_sites_african,
+    "\\end{minipage} 
+\\end{table}"
+)) 
+```
+
+
+```{r results='asis', echo=FALSE}
+cat(c("\\begin{table}[!htb]
+    \\begin{minipage}{.33\\linewidth}
+    \\caption{New Participants Target}",
+        all_sites_new,
+    "\\end{minipage}%
+    \\begin{minipage}{.33\\linewidth}
+    \\caption{Follow-up Visits Target}",
+        all_sites_fv,
+    "\\end{minipage} 
+    \\begin{minipage}{.33\\linewidth}
+    \\caption{Follow-up Visits MRI/PET}",
+       all_sites_mripet ,
+    "\\end{minipage} 
+\\end{table}"
+)) 
+```
+
+Tables 1-6- This table displays the P30 grant proposal aims as outlined on page 359, second paragrapgh on the P30 Submitted Application, (https://www.dropbox.com/s/bxelgas81y4embo/P30%20Submitted%20Application.pdf?dl=0). The tables are described as followed: 1) Target recruitment of approximately (~) 40% of all participants are to be Hispanic for all sites, 2) Target recruitment of approximately (~) 40% of all participants are to be White non-hispanic for all sites, 3) Target recruitment of approximately (~) 20% of all participants are to be African American for all sites, 4) Target recruitment of 100 new participants are to be consented at each site (MSMC, UM, UF), 5) Target follow-up visits are to be 200 follow-up visits for MSMC, 100 follow-up visits for UF, and 100 follow-up visits for UF, 6) Follow-up participant target activity is to receive repeat MRI and PET scans.
+  
