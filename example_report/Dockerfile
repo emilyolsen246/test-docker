@@ -17,4 +17,5 @@ COPY test_format.Rmd /test-source/
 COPY targets.csv /test-source/
 COPY oneflorida.png /test-source/
 COPY *.Rmd /test-source/
-CMD ["R", "-e", "rmarkdown::render('/test-source/test_format.Rmd', output_file='/home/Downloads/example_report/test_format.pdf')"]
+RUN mkdir /home/output
+CMD ["R", "-e", "rmarkdown::render('/test-source/test_format.Rmd', output_file='test_format.pdf', output_dir = '/home/output')"]
